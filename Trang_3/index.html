@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử thiết bị</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="../Trang_1/index.html">Trang chủ</a></li>
+            <li><a href="../Trang_2/index.html">Thống kê không khí</a></li>
+            <li><a href="index.html">Lịch sử thiết bị</a></li>
+            <li><a href="../Trang_4/index.html">Thông tin</a></li>
+        </ul>
+    </nav>
+
+    <div class="box">
+        <div class="search-container" id="search-container">
+            <label for="startTime">Từ:</label>
+            <input type="date" id="startTime">
+            <label for="endTime">Đến:</label>
+            <input type="date" id="endTime">
+        </div>
+    
+        <div id="equip-container">
+            <label for="equipOptions">Thiết bị:</label>
+            <select id="equipOptions">
+                <option value="macdinh">Mặc định</option>           
+                <option value="Quạt">Quạt</option>
+                <option value="Điều hòa">Điều hòa</option>
+                <option value="Đèn">Đèn</option>
+            </select>
+        </div>
+    
+        <div id="button-container">
+            <button id="search-filterBtn">Áp dụng</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="container_1">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên thiết bị</th>
+                        <th>Hoạt động</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody id="dataBody">
+                    <!-- Dữ liệu sẽ được thêm vào đây -->
+                </tbody>
+            </table>  
+        </div>  
+
+        <div id="pagination">
+            <button id="prevBtn" class="arrow">&#9664;</button> <!-- Mũi tên trái -->
+            <div id="pageNumbers"></div>
+            <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

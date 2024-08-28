@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="../Trang_2/index.html">Thống kê không khí</a></li>
+            <li><a href="../Trang_3/index.html">Lịch sử thiết bị</a></li>
+            <li><a href="../Trang_4/index.html">Thông tin</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="block">
+            <h3>Nhiệt độ (°C)</h3>
+            <div id="info-temp" class="info">
+                <p id="temperature" class="desc">--</p>
+                <div id="img-temp"></div>
+            </div>
+        </div>
+        <div class="block">
+            <h3>Độ ẩm (%)</h3>
+            <div id="info-humid" class="info">
+                <p id="humidity" class="desc">--</p>
+                <div id="img-humid"></div>
+            </div>
+        </div>
+        <div class="block">
+            <h3>Cường độ ánh sáng (lux)</h3>
+            <div id="info-light" class="info">
+                <p id="light" class="desc">--</p>
+                <div id="img-light"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-wrapper">
+        <div class="container-1">
+            <canvas id="lineChart"></canvas>
+        </div>
+    
+        <div id="container-2" class="buttons">
+            <div class="fan-container">
+                <img src="../images/fan.jpg" alt="Fan" id="fan" class="fan">
+                <span>Quạt: </span><button id="fanToggleBtn">On</button>
+            </div>
+            
+            <div class="ac-container">
+                <div class="ac" id="ac">
+                    <img src="../images/dieuhoa2.jpg" alt="Air Conditioner">
+                    <div class="wind" id="wind"></div>
+                </div>
+                <span>Điều hòa: </span><button id="acToggleBtn">On</button>
+            </div>
+            
+            <div class="light-container">
+                <div class="den" id="den">
+                    <img src="../images/light.jpg" alt="Light">
+                    <div class="glow" id="glow"></div>
+                </div>
+                <span>Đèn: </span><button id="lightToggleBtn" class="on">On</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

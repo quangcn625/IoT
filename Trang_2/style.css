@@ -1,0 +1,201 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eaeaea;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 60px; /* Space for the fixed navbar */
+    overflow: hidden; /* Prevent both horizontal and vertical scrolling */
+}
+
+/* Navbar styling */
+.navbar {
+    background: linear-gradient(to right, #0099cc, #00bcd4);
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0 10px; /* Reduced margin for better fit */
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: #e9d3d3;
+}
+
+/* Box container for search and filter options */
+.box {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 15px; /* Reduced padding for better fit */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    gap: 10px; /* Adjusted gap for better fit */
+    font-weight: bold;
+}
+
+/* Search and filter containers */
+.search-container,
+#button-container {
+    flex: 1;
+    min-width: 150px; /* Adjusted minimum width */
+    box-sizing: border-box;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* 
+#sort-container {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+} */
+
+#button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Styling for inputs, select, and buttons */
+input[type="date"],
+select,
+button {
+    padding: 8px; /* Reduced padding for better fit */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px; /* Adjusted font size */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+select {
+    background-color: #fff;
+    width: 220px; /* Adjust width if needed */
+}
+
+button {
+    background: linear-gradient(to bottom, #0099cc, #0077aa);
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #0077aa, #005f8a);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Data table styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px; /* Reduced margin */
+}
+
+.data-table th, .data-table td {
+    padding: 10px; /* Reduced padding */
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.data-table th {
+    background: linear-gradient(to bottom, #0099cc, #0077aa);
+    color: #fff;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Pagination styling */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px; /* Reduced margin */
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+#pagination .arrow {
+    background: linear-gradient(to bottom, #0099cc, #0077aa);
+    color: #fff;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px; /* Adjusted font size */
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#pagination .arrow:hover {
+    background: linear-gradient(to bottom, #0077aa, #005f8a);
+    transform: scale(1.1);
+}
+
+#pageNumbers {
+    display: flex;
+    align-items: center;
+    margin: 0 10px; /* Reduced margin */
+    font-size: 12px; /* Adjusted font size */
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+#pageNumbers button {
+    background: none;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 14px; /* Adjusted font size */
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+#pageNumbers button:hover {
+    color: #0077aa;
+}
+
+#pagination button.active {
+    background-color: #b8c5d4;
+}
