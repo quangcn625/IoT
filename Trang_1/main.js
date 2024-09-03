@@ -35,6 +35,8 @@ const config = {
     type: 'line',
     data: data,
     options: {
+        reponsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 display: true,

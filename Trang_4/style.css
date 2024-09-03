@@ -15,7 +15,7 @@ body {
     overflow: hidden; /* Prevent both horizontal and vertical scrolling */
 }
 
-/* Navbar Styling */
+/* Navigation bar styling */
 .navbar {
     background: linear-gradient(to right, #0099cc, #00bcd4);
     padding: 15px;
@@ -25,20 +25,16 @@ body {
     left: 0;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
 }
 
 .navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping for smaller screens */
-    margin: 0;
-    padding: 0;
 }
 
 .navbar li {
-    margin: 0 10px; /* Reduced margin for better fit */
+    margin: 0 20px;
 }
 
 .navbar a {
@@ -46,10 +42,10 @@ body {
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
-    transition: color 0.3s;
 }
 
 .navbar a:hover {
+    text-decoration: none;
     color: #e9d3d3;
 }
 

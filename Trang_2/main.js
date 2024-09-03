@@ -10,8 +10,8 @@ function generateData(numEntries) {
 
         data.push({
             id: i,
-            temp: `${Math.floor(Math.random() * 10) + 20}°C`,
-            humidity: `${Math.floor(Math.random() * 50) + 50}%`,
+            temp: `${Math.floor(Math.random() * 10) + 20} °C`,
+            humidity: `${Math.floor(Math.random() * 50) + 50} %`,
             light: `${Math.floor(Math.random() * 500) + 100} lux`,
             time: randomDate.toISOString().slice(0, 19) // Định dạng datetime-local
         });
@@ -49,7 +49,7 @@ function displayTable(data, page) {
 function setupPagination(data) {
     const pagination = document.getElementById('pageNumbers');
     const totalPages = Math.ceil(data.length / rowsPerPage);
-    const maxPageButtons = 5; // Số lượng nút trang hiển thị tối đa
+    const maxPageButtons = 5;
 
     pagination.innerHTML = '';
 
@@ -67,33 +67,50 @@ function setupPagination(data) {
         pagination.appendChild(button);
     };
 
-    if (totalPages <= maxPageButtons) {
-        for (let i = 1; i <= totalPages; i++) {
+    // Luôn hiển thị trang đầu tiên
+    createPageButton(1);
+
+    if (totalPages <= maxPageButtons + 1) {
+        // Hiển thị tất cả các trang nếu tổng số trang ít hơn hoặc bằng 6
+        for (let i = 2; i <= totalPages - 1; i++) {
             createPageButton(i);
         }
     } else {
-        if (currentPage <= Math.floor(maxPageButtons / 2)) {
-            for (let i = 1; i <= maxPageButtons - 1; i++) {
+        if (currentPage <= 3) {
+            // Nếu đang ở trang 1, 2, hoặc 3 thì hiển thị trang 2, 3, 4 mà không cần dấu chấm
+            for (let i = 2; i <= 4; i++) {
                 createPageButton(i);
             }
-            createPageButton(totalPages, true);
-        } else if (currentPage > totalPages - Math.floor(maxPageButtons / 2)) {
-            createPageButton(1, true);
-            for (let i = totalPages - (maxPageButtons - 2); i <= totalPages; i++) {
-                createPageButton(i);
+            if (4 < totalPages - 1) {
+                createPageButton('...', true);
             }
-        } else {
-            createPageButton(1, true);
+        } else if (currentPage > 3 && currentPage <= totalPages - 3) {
+            // Hiển thị dấu chấm nếu có khoảng cách giữa trang 1 và các trang hiện tại
+            createPageButton('...', true);
             for (let i = currentPage - 1; i <= currentPage + 1; i++) {
                 createPageButton(i);
             }
-            createPageButton(totalPages, true);
+            if (currentPage + 1 < totalPages - 1) {
+                createPageButton('...', true);
+            }
+        } else {
+            // Nếu đang ở những trang cuối cùng, hiển thị các trang gần cuối
+            createPageButton('...', true);
+            for (let i = totalPages - 3; i <= totalPages - 1; i++) {
+                createPageButton(i);
+            }
         }
     }
+
+    // Luôn hiển thị trang cuối cùng
+    if (totalPages > 1) {
+        createPageButton(totalPages);
+    }
+
     updatePagination();
 }
 
-// Cập nhật nút phân trang
+// Cập nhật trang hiện tại
 function updatePagination() {
     const buttons = document.querySelectorAll('#pageNumbers button');
     buttons.forEach(button => {
@@ -113,7 +130,7 @@ function goToPreviousPage() {
     }
 }
 
-// Chuyển đến trang tiếp theo
+// Chuyển đến trang sau
 function goToNextPage() {
     const totalPages = Math.ceil(filteredData.length / rowsPerPage);
     if (currentPage < totalPages) {
@@ -123,7 +140,7 @@ function goToNextPage() {
     }
 }
 
-// Khởi tạo bảng và phân trang khi trang được tải
+// Khởi tạo lại bảng sau khi được tải lại
 document.addEventListener('DOMContentLoaded', () => {
     displayTable(filteredData, currentPage);
     setupPagination(filteredData);
@@ -250,4 +267,46 @@ document.getElementById('search-filterBtn').addEventListener('click', function()
         alert('Hãy chọn đầy đủ ngày bắt đầu và kết thúc');
     }
 });
+
+
+const sub = document.getElementById('sub');
+
+sub.addEventListener('click', () => {
+    let tmp = document.getElementById('timeOption').value;
+
+    const filteredData = originalData.filter((item) => {
+        return tmp == item.time;
+    });
+
+    if (filteredData.length !== 0) {
+        const Temp = filteredData.map(item => item.temp);
+        const Humidity = filteredData.map(item => item.humidity);
+        const Light = filteredData.map(item => item.light);
+
+        document.getElementById('Temp').textContent = Temp;
+        document.getElementById('Humidity').textContent = Humidity;
+        document.getElementById('Light').textContent = Light;
+    } else {
+        console.log("No matching data found.");
+        document.getElementById('Temp').textContent = '--';
+        document.getElementById('Humidity').textContent = '--';
+        document.getElementById('Light').textContent = '--';
+    }
+});
+
+document.getElementById('functionSelect').addEventListener('change', () => {
+    const tmp = document.getElementById('functionSelect').value;
+    if(tmp === 'find'){
+        document.getElementById('containerOption').style.display = 'flex';
+        document.getElementById('box').style.display = 'none';
+    }
+    else if(tmp === 'sort'){
+        document.getElementById('containerOption').style.display = 'none';
+        document.getElementById('box').style.display = 'flex'
+    }
+    else{
+        document.getElementById('containerOption').style.display = 'none';
+        document.getElementById('box').style.display = 'none';
+    }
+})
 

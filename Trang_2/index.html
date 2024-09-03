@@ -11,24 +11,37 @@
 <body>
     <nav class="navbar">
         <ul>
-            <li><a href="../Trang_1/index.html">Trang chủ</a></li>
-            <li><a href="index.html">Thống kê không khí</a></li>
-            <li><a href="../Trang_3/index.html">Lịch sử thiết bị</a></li>
-            <li><a href="../Trang_4/index.html">Thông tin</a></li>
+            <li><a href="../Trang_1/index.html">HOME</a></li>
+            <li><a href="index.html">DATA SENSOR</a></li>
+            <li><a href="../Trang_3/index.html">ACTIVITY HISTORY</a></li>
+            <li><a href="../Trang_4/index.html">PROFILE</a></li>
         </ul>
     </nav>
 
-    <!-- <div>
-        <label for="functionSelect">Chọn tính năng:</label>
+    <div>
+        <label for="functionSelect">Tính năng:</label>
         <select id="functionSelect">
             <option value="">-- Chọn tính năng --</option>
-            <option value="findMax">Tìm giá trị lớn nhất</option>
-            <option value="sort">Sắp xếp dữ liệu</option>
-            <option value="filter">Tìm kiếm dữ liệu theo ngày</option>
+            <option value="find">Tìm giá trị theo ngày</option>
+            <option value="sort">Thống kê và sắp xếp dữ liệu</option>
         </select>
-    </div> -->
+    </div>
 
-    <div class="box">
+    <div class="containerOption" id="containerOption" style="display: none;">
+        <div>
+            <label for="timeOption">Chọn:</label>
+            <input type="datetime-local" id="timeOption" step="1">
+            <button id="sub">Tìm</button>
+        </div>
+        
+        <div id="Values" style="margin-top: 10px;">
+            <p>Nhiệt độ : <span id="Temp">--</span></p>
+            <p>Độ ẩm : <span id="Humidity">--</span></p>
+            <p>Cường độ sáng : <span id="Light">--</span></p>
+        </div>
+    </div>
+
+    <div class="box" id="box" style="display: none;">
         <div class="search-container" id="search-container">
             <label for="startTime">Từ:</label>
             <input type="date" id="startTime">
@@ -37,7 +50,7 @@
         </div>
     
         <div id="sort-container">
-            <label for="sortOptions">Tính năng:</label>
+            <label for="sortOptions">Tùy chọn:</label>
             <select id="sortOptions">
                 <option value="macdinh">Mặc định</option>           
                 <option value="tempAsc">Nhiệt độ (Tăng dần)</option>
@@ -53,24 +66,6 @@
             <button id="search-filterBtn">Áp dụng</button>
         </div>
     </div>
-    
-
-
-    <!-- <div id="max-container" style="display: none;">
-        <div>
-            <label for="maxDate">Chọn ngày:</label>
-            <input type="date" id="maxDate">
-            <button id="findMaxBtn">Tìm</button>
-        </div>
-        
-        <div id="maxValues" style="margin-top: 10px;">
-            <p>Nhiệt độ cao nhất: <span id="maxTemp">--</span></p>
-            <p>Độ ẩm cao nhất: <span id="maxHumidity">--</span></p>
-            <p>Cường độ sáng cao nhất: <span id="maxLight">--</span></p>
-        </div>
-    </div> -->
-
-
 
     <div class="container">
         <div class="container_1">
