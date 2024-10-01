@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử thiết bị</title>
+    <link rel="stylesheet" href="./css/activity.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="dashboard">
+            <span class="textDashboard">Dashboard</span>
+        </div>
+        <ul>
+            <li >
+                <img id="home" src="./images/home.jpg" alt="">
+                <a href="./home.html">Home</a>
+            </li>
+            <li>
+                <img id="dataSensor" src="./images/datasensor.jpg" alt="">
+                <a href="./sensor.html">Data sensor</a>
+            </li>
+            <li class="active">
+                <img id="activity" src="./images/activity.jpg" alt="">
+                <a href="activity.html">Activity history</a>
+            </li>
+            <li>
+                <img id="profileIcon" src="./images/profileIcon.jpg" alt="">
+                <a href="./profile.html">Profile</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="box">
+        <div class="search-container" id="search-container">
+            <label for="Time">Thời gian: </label>
+            <input type="datetime-local" id="Time" step="1">
+            <button id="search-filterBtn">
+                <img src="./images/search.jpg" alt="">
+            </button>
+        </div>
+    </div>
+    
+
+    <div class="container">
+        <div class="container_1">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên thiết bị</th>
+                        <th>Hoạt động</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Dữ liệu sẽ được thêm vào đây -->
+                </tbody>
+            </table>  
+        </div>  
+
+        <div id="pagination">
+            <button id="prevBtn" class="arrow">&#9664;</button> <!-- Mũi tên trái -->
+            <div id="pageNumbers"></div>
+            <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
+        </div>
+    </div>
+
+    <script src="./js/activity.js"></script>
+</body>
+</html>

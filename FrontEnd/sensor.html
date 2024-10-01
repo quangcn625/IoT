@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống kê không khí</title>
+    <link rel="stylesheet" href="./css/sensor.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="dashboard">
+            <span class="textDashboard">Dashboard</span>
+        </div>
+        <ul>
+            <li >
+                <img id="home" src="./images/home.jpg" alt="">
+                <a href="./home.html">Home</a>
+            </li>
+            <li class="active">
+                <img id="dataSensor" src="./images/datasensor.jpg" alt="">
+                <a href="sensor.html">Data sensor</a>
+            </li>
+            <li>
+                <img id="activity" src="./images/activity.jpg" alt="">
+                <a href="./activity.html">Activity history</a>
+            </li>
+            <li>
+                <img id="profileIcon" src="./images/profileIcon.jpg" alt="">
+                <a href="./profile.html">Profile</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="search-select">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button id="search-filterBtn">
+                <img src="./images/search.jpg" alt="">
+            </button>
+        </div>
+
+        <div class="select-container">
+            <label for="selectOptions"></label>
+            <select id="selectOptions">
+                <option value="macdinh">Mặc định</option>
+                <option value="temperature">Nhiệt độ</option>
+                <option value="humidity">Độ ẩm</option>
+                <option value="light">Cường độ</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="container_1">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Nhiệt độ (°C)</th>
+                        <th>Độ ẩm (%)</th>
+                        <th>Cường độ ánh sáng (lux)</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Dữ liệu sẽ được thêm vào đây qua JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <div id="pagination">
+            <button id="prevBtn" class="arrow">&#9664;</button> <!-- Mũi tên trái -->
+            <div id="pageNumbers"></div>
+            <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
+        </div>
+    </div>
+
+    <script src="./js/sensor.js"></script>
+</body>
+
+</html>

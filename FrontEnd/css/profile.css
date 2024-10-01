@@ -1,0 +1,139 @@
+/* General Reset and Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #eaeaea;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 60px; /* Space for the fixed navbar */
+    overflow: hidden; /* Prevent both horizontal and vertical scrolling */
+}
+
+/* CSS cho dashboard*/
+.navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dashboard {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 100%; 
+    font-size: large;
+    font-weight: bold;
+    border-bottom: solid;
+}
+
+.textDashboard {
+    margin-left: 30px;
+    text-align: center;
+}
+
+.navbar ul {
+    font-size: medium;
+    font-weight: bold;
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    display: flex; 
+    align-items: center; 
+    margin: 15px 0px; 
+}
+
+#home, #dataSensor, #activity, #profileIcon {
+    width: 25px;
+    height: 25px; 
+    margin-right: 10px; 
+    margin-left: 20px;
+}
+
+.navbar a {
+    text-decoration: none; 
+    color: #333; 
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hiển thị màu nền nổi bật cho trang hiện tại */
+.navbar .active {
+    background-color: #bdc6d2;
+    border-radius: 5px;
+    width: 120%;
+}
+
+.navbar a:hover {
+    color: rgb(83, 144, 144);
+}
+
+
+/* Container Styling */
+.container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px;
+    width: 500px; 
+    height: 200px;
+    margin: 100px auto; 
+    background-color: #f9f9f9;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    position: relative;
+}
+
+.container_1 {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+}
+
+#profile{
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 2px solid #ddd; 
+}
+
+.container_2 {
+    margin-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+.container_2 span {
+    display: block;
+    font-size: 16px; 
+    margin-bottom: 10px; 
+    color: #333; 
+}
+
+.container_3 {
+    position: absolute;
+    bottom: 2px; 
+    left: 5px; 
+    background: #f9f9f9;
+    padding: 5px;
+    border-radius: 5px;
+}

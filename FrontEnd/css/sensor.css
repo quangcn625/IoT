@@ -1,0 +1,280 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eaeaea;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 60px; /* Space for the fixed navbar */
+    padding-bottom: 30px;
+    /* overflow-y: auto; Enable vertical scrolling */
+}
+
+/* CSS cho dashboard*/
+.navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dashboard {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 100%; 
+    font-size: large;
+    font-weight: bold;
+    border-bottom: solid;
+}
+
+.textDashboard {
+    margin-left: 30px;
+    text-align: center;
+}
+
+.navbar ul {
+    font-size: medium;
+    font-weight: bold;
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    display: flex; 
+    align-items: center; 
+    margin: 15px 0px; 
+}
+
+#home, #dataSensor, #activity, #profileIcon {
+    width: 25px;
+    height: 25px; 
+    margin-right: 10px; 
+    margin-left: 20px;
+}
+
+.navbar a {
+    text-decoration: none; 
+    color: #333; 
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hiển thị màu nền nổi bật cho trang hiện tại */
+.navbar .active {
+    background-color: #bdc6d2;
+    border-radius: 5px;
+    width: 120%;
+}
+
+.navbar a:hover {
+    color: rgb(83, 144, 144);
+}
+
+
+button {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    background: linear-gradient(to bottom, #0099cc, #0077aa);
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #0077aa, #005f8a);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* CSS cho đoạn tìm kiếm và select */
+.search-select {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 30%;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-container {
+    position: relative;
+}
+
+#searchInput {
+    padding: 10px;
+    padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    width: 250px;
+    transition: border-color 0.3s;
+}
+
+#searchInput:focus {
+    border-color: #4a90e2;
+}
+
+#search-filterBtn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #4e93e8;
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 30px;
+    height: 30px; 
+}
+
+#search-filterBtn img {
+    width: 21px;
+    height: auto;
+    margin: auto;
+}
+
+#search-filterBtn:hover {
+    background-color: #357ab8;
+}
+
+.select-container {
+    margin-left: 20px;
+}
+
+#selectOptions {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.3s;
+}
+
+#selectOptions:focus {
+    border-color: #4a90e2; 
+}
+
+/* CSS cho table */
+.container{
+    margin-left: 10%;
+}
+
+.container_1 {
+    width: 100%;
+    margin: 10px 0;
+    display: flex; 
+    justify-content: center;
+}
+
+/* Định dạng bảng dữ liệu */
+.data-table {
+    width: 80%; 
+    border-collapse: collapse;
+    border-radius: 8px; 
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng cho tiêu đề bảng */
+.data-table thead {
+    background-color: #4a90e2; 
+    color: white
+}
+
+.data-table th {
+    padding: 10px; 
+    text-align: center;
+    font-weight: bold;
+}
+
+.data-table td {
+    padding: 9px; 
+    border-bottom: 1px solid #ddd; 
+    text-align: center;
+    background-color: white;
+}
+
+.data-table tbody tr:first-child {
+    border-top: 2px solid #007bff; 
+}
+
+/* Định dạng cho ô trống */
+.data-table td.empty {
+    text-align: center; 
+    color: #999; 
+}
+
+/* CSS cho phân trang*/
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+#pagination .arrow {
+    background: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#pagination .arrow:hover {
+    transform: scale(1.1);
+}
+
+#pageNumbers {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 12px;
+    flex-wrap: wrap;
+}
+
+#pageNumbers button {
+    background: none;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+#pageNumbers button:hover {
+    color: #0077aa;
+}
+
+#pagination button.active {
+    background-color: #b8c5d4;
+}
+
