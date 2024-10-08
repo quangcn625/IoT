@@ -1,10 +1,16 @@
 
 // Biến lưu trữ queryParams hiện tại
 let currentQueryParams = {};
+// Lấy phần tử dropdown page size
+const pageSizeDropdown = document.getElementById('pageSize');
 
 // Hàm để lấy dữ liệu cảm biến từ máy chủ với các tham số tìm kiếm và phân trang
-async function fetchEquipData(page = 1, limit = 10, queryParams = currentQueryParams) {
+async function fetchEquipData(page = 1, limit = parseInt(pageSizeDropdown.value), queryParams = currentQueryParams) {
     try {
+        // Lưu trang hiện tại và giới hạn phân trang vào biến global để sử dụng lại khi cần thiết
+        currentPage = page;
+        currentLimit = limit;
+
         let queryString = `?page=${page}&limit=${limit}`;
 
         if (queryParams.activity_time) {
@@ -163,5 +169,13 @@ searchFilterBtn.addEventListener('click', (event) => {
 
     currentQueryParams.activity_time = searchValue;
 
-    fetchEquipData(1, 10, currentQueryParams);
+    fetchEquipData(1, currentLimit, currentQueryParams);
+});
+
+// Thêm sự kiện lắng nghe cho dropdown page size
+pageSizeDropdown.addEventListener('change', () => {
+    // Lấy giá trị mới từ dropdown
+    const newPageSize = parseInt(pageSizeDropdown.value);
+    // Gọi lại hàm fetchSensorData với trang đầu tiên và số lượng mới
+    fetchEquipData(1, newPageSize, currentQueryParams);
 });

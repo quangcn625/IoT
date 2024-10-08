@@ -120,7 +120,7 @@ function savedSensor() {
 }
 
 // Hàm lấy dữ liệu từ localStorage
-function restoredSensor() {
+function restoreSensor() {
     const data = localStorage.getItem('sensorData');
     if (data) {
         const parsedData = JSON.parse(data);
@@ -179,7 +179,7 @@ socket.addEventListener('message', function (event) {
             lineChart.data.datasets[1].data.push(currentHumidity);
             lineChart.data.datasets[2].data.push(currentLight);
 
-            if (lineChart.data.labels.length > 10) {
+            if (lineChart.data.labels.length > 5) {
                 lineChart.data.labels.shift();
                 lineChart.data.datasets.forEach((dataset) => {
                     dataset.data.shift();
@@ -254,22 +254,25 @@ function getLightIcon(light) {
 
 // Quạt
 const fanToggleBtn = document.getElementById('fanToggleBtn');
-const loadingFan = document.createElement('div');
-loadingFan.classList.add('loading');
-fanToggleBtn.appendChild(loadingFan);
+const fan = document.getElementById('fan');
 
-let isFanOn = false; // Trạng thái quạt mặc định
-let isWaitingForFan = false; // Biến kiểm soát khi đang chờ phản hồi từ server
+const loadingFanState = document.createElement('div');
+loadingFanState.classList.add('loadingFan');
 
-// Khôi phục trạng thái đèn từ localStorage
+// Biến kiểm soát trạng thái quạt và trạng thái chờ
+let isFanOn = false;
+let isWaitingForFan = false;
+
+// Khôi phục trạng thái quạt khi tải lại trang
 function restoreFanStatus() {
     const savedFanStatus = localStorage.getItem('Quat');
     if (savedFanStatus !== null) {
         isFanOn = JSON.parse(savedFanStatus);
     }
-    updateFanStatus(isFanOn);
-}
+    updateFanStatus(isFanOn); 
+};
 
+// Hàm cập nhật trạng thái quạt
 function updateFanStatus(state) {
     isFanOn = state;
     if (state) {
@@ -284,20 +287,20 @@ function updateFanStatus(state) {
     localStorage.setItem('Quat', JSON.stringify(isFanOn));
 }
 
+// Hàm hiển thị loading spinner
 function showFanLoadingSpinner() {
-    fanToggleBtn.textContent = '';
-    loadingFan.style.display = 'inline-block'; // Hiển thị loading
-    fanToggleBtn.style.pointerEvents = 'none'; // Vô hiệu hóa click khi đang loading
-    fanToggleBtn.classList.add('loading-state');
+    fanToggleBtn.textContent = ''; 
+    loadingFanState.style.display = 'block';
+    fanToggleBtn.style.pointerEvents = 'none';
+}   
+
+// Hàm ẩn loading spinner
+function hideFanLoadingSpinner() {
+    loadingFanState.style.display = 'none';
+    fanToggleBtn.style.pointerEvents = 'auto';
 }
 
-function hidenFanLoadingSpinner() {
-    loadingFan.style.display = 'none'; // Ẩn loading
-    fanToggleBtn.style.pointerEvents = 'auto'; // Khôi phục click
-    fanToggleBtn.classList.remove('loading-state');
-}
-
-
+// Giả lập quá trình phản hồi sau 2 giây
 function sendFanStatus(state) {
     if (socket && socket.readyState === WebSocket.OPEN) {
         showFanLoadingSpinner(); 
@@ -307,32 +310,42 @@ function sendFanStatus(state) {
         socket.send(JSON.stringify({ action: 'toggleFan', state }));
         console.log("Đã gửi trạng thái quạt:", state);
 
-        // Khi nhận phản hồi từ server, cập nhật giao diện và trạng thái đèn
-        hidenFanLoadingSpinner();
-        updateFanStatus(state); // Cập nhật giao diện đèn và lưu trạng thái
-        isWaitingForFan = false; // Cho phép nhấn nút lại
     }
     else {
         alert('Không thể điều khiển được quạt khi kết nối bị gián đoạn hoặc không có kết nối!');
     }
 }
+// function sendFanStatus(state) {
+//     showFanLoadingSpinner(); 
+//     isWaitingForFan = true;
 
+//     // Giả lập quá trình phản hồi từ "server" sau 2 giây
+//     setTimeout(() => {
+//         hideFanLoadingSpinner();
+//         updateFanStatus(state); // Cập nhật giao diện quạt và lưu trạng thái
+//         isWaitingForFan = false; // Cho phép nhấn nút lại
+//     }, 2000);
+// }
+
+// Sự kiện click của button
 fanToggleBtn.addEventListener('click', () => {
-    if (isWaitingForFan) { // Kiểm tra nếu đang chờ phản hồi từ server
-        console.warn('Đang chờ phản hồi từ server. Vui lòng đợi...');
+    if (isWaitingForFan) {
+        console.warn('Đang chờ phản hồi. Vui lòng đợi...');
         return;
     }
     const newFanState = !isFanOn;
     sendFanStatus(newFanState);
+    fanToggleBtn.appendChild(loadingFanState);
 });
 
 
 // Điều hòa
 const acToggleBtn = document.getElementById('acToggleBtn');
 const wind = document.getElementById('wind');
-const loadingAc = document.createElement('div'); 
-loadingAc.classList.add('loading');
-acToggleBtn.appendChild(loadingAc);
+
+const loadingACState = document.createElement('div'); 
+loadingACState.classList.add('loadingAC');
+
 
 let isACOn = false; // Trạng thái cục bộ của điều hòa
 let isWaitingForAc = false; // Biến kiểm soát khi đang chờ phản hồi từ server
@@ -366,15 +379,13 @@ function updateACStatus(state) {
 
 function showAcLoadingSpinner() {
     acToggleBtn.textContent = '';
-    loadingAc.style.display = 'inline-block'; // Hiển thị loading
-    acToggleBtn.style.pointerEvents = 'none'; // Vô hiệu hóa click khi đang loading
-    acToggleBtn.classList.add('loading-state');
+    loadingACState.style.display = 'block'; 
+    acToggleBtn.style.pointerEvents = 'none';
 }
 
-function hidenAcLoadingSpinner() {
-    loadingAc.style.display = 'none'; // Ẩn loading
-    acToggleBtn.style.pointerEvents = 'auto'; // Khôi phục click
-    acToggleBtn.classList.remove('loading-state');
+function hideAcLoadingSpinner() {
+    loadingACState.style.display = 'none';
+    acToggleBtn.style.pointerEvents = 'auto';
 }
 
 function sendACStatus(state) {
@@ -386,16 +397,13 @@ function sendACStatus(state) {
         socket.send(JSON.stringify({ action: 'toggleAC', state }));
         console.log("Đã gửi trạng thái điều hòa: ", state);
 
-        // Khi nhận phản hồi từ server, cập nhật giao diện và trạng thái đèn
-        hidenAcLoadingSpinner();
-        updateACStatus(state);
-        isWaitingForAc = false;
     }
     else {
         alert('Không thể điều khiển được điều hòa khi kết nối bị gián đoạn hoặc không có kết nối!');
     }
 }
 
+// Sự kiện click của button
 acToggleBtn.addEventListener('click', () => {
     if (isWaitingForAc) { 
         console.warn('Đang chờ phản hồi từ server. Vui lòng đợi...');
@@ -403,15 +411,16 @@ acToggleBtn.addEventListener('click', () => {
     }
     const newACState = !isACOn; 
     sendACStatus(newACState);
+    acToggleBtn.appendChild(loadingACState);
 });
 
 
 // Đèn
 const lightToggleBtn = document.getElementById('lightToggleBtn');
 const den = document.getElementById('den');
-const loadingLight = document.createElement('div'); 
-loadingLight.classList.add('loading');
-lightToggleBtn.appendChild(loadingLight);
+
+const loadingLightState = document.createElement('div'); 
+loadingLightState.classList.add('loadingLight');
 
 let isLightOn = false; // Trạng thái cục bộ của đèn
 let isWaitingForLight = false; // Biến kiểm soát khi đang chờ phản hồi từ server
@@ -444,15 +453,13 @@ function updateLightStatus(state) {
 
 function showLightLoadingSpinner() {
     lightToggleBtn.textContent = '';
-    loadingLight.style.display = 'inline-block'; // Hiển thị loading
-    lightToggleBtn.style.pointerEvents = 'none'; // Vô hiệu hóa click khi đang loading
-    lightToggleBtn.classList.add('loading-state');
+    loadingLightState.style.display = 'block';
+    lightToggleBtn.style.pointerEvents = 'none';
 }
 
-function hidenLightLoadingSpinner() {
-    loadingLight.style.display = 'none'; // Ẩn loading
-    lightToggleBtn.style.pointerEvents = 'auto'; // Khôi phục click
-    lightToggleBtn.classList.remove('loading-state');
+function hideLightLoadingSpinner() {
+    loadingLightState.style.display = 'none';
+    lightToggleBtn.style.pointerEvents = 'auto';
 }
 
 function sendLightStatus(state) {
@@ -464,10 +471,6 @@ function sendLightStatus(state) {
         socket.send(JSON.stringify({ action: 'toggleLight', state }));
         console.log("Đã gửi trạng thái đèn: ", state);
 
-        // Khi nhận phản hồi từ server, cập nhật giao diện và trạng thái đèn
-        hidenLightLoadingSpinner();
-        updateLightStatus(state); // Cập nhật giao diện đèn và lưu trạng thái
-        isWaitingForLight = false; // Cho phép nhấn nút lại
     }
     else {
         alert('Không thể điều khiển được đèn khi kết nối bị gián đoạn hoặc không có kết nối!');
@@ -482,8 +485,8 @@ lightToggleBtn.addEventListener('click', () => {
     }
     const newLightState = !isLightOn;
     sendLightStatus(newLightState);
+    lightToggleBtn.appendChild(loadingLightState);
 });
-
 
 // Nhận phản hồi từ backend
 socket.addEventListener('message', (event) => {
@@ -496,30 +499,29 @@ socket.addEventListener('message', (event) => {
             console.log("ESP phản hồi trạng thái của quạt là: ", isFanOn);
             updateFanStatus(isFanOn);
             isWaitingForFan = false; 
-            hidenFanLoadingSpinner();
+            hideFanLoadingSpinner();
         }
         else if (name === 'DieuHoa') {
             isACOn = message.state.led2;
             console.log("ESP phản hồi trạng thái của điều hòa là: ", isACOn);
             updateACStatus(isACOn);
             isWaitingForAc = false; 
-            hidenAcLoadingSpinner();
+            hideAcLoadingSpinner();
         }
         else if (name === 'Den'){
             isLightOn = message.state.led3;
             console.log("ESP phản hồi trạng thái của đèn là: ", isLightOn);
             updateLightStatus(isLightOn);
             isWaitingForLight = false; 
-            hidenLightLoadingSpinner();
+            hideLightLoadingSpinner();
         }
     }
 });
 
 
 // Khôi phục dữ liệu của sensor, biểu đồ, trạng thái quạt, điều hòa, đèn khi trang được tải
-restoredSensor();
+restoreSensor();
 restoreFanStatus();
 restoreACStatus();
 restoreLightStatus();
-
 

@@ -1,10 +1,15 @@
-
 // Biến lưu trữ queryParams hiện tại
 let currentQueryParams = {};
+// Lấy phần tử dropdown page size
+const pageSizeDropdown = document.getElementById('pageSize');
 
 // Hàm để lấy dữ liệu cảm biến từ máy chủ với các tham số tìm kiếm và phân trang
-async function fetchSensorData(page = 1, limit = 10, queryParams = currentQueryParams) {
+async function fetchSensorData(page = 1, limit = parseInt(pageSizeDropdown.value), queryParams = currentQueryParams) {
     try {
+        // Lưu trang hiện tại và giới hạn phân trang vào biến global để sử dụng lại khi cần thiết
+        currentPage = page;
+        currentLimit = limit;
+
         let queryString = `?page=${page}&limit=${limit}`;
 
         if (queryParams.temperature) {
@@ -65,8 +70,7 @@ function updateDataTable(data) {
         // Ẩn các phần tử phân trang khi không có dữ liệu
         document.getElementById('pagination').style.display = 'none';
         return;
-    }
-    else {
+    } else {
         document.getElementById('pagination').style.display = 'flex';
     }
 
@@ -95,12 +99,12 @@ function updatePagination(data) {
     // Thêm nút "Trước"
     const prevBtn = document.getElementById('prevBtn');
     prevBtn.disabled = data.page === 1; // Vô hiệu hóa nút "Trước" nếu đang ở trang đầu
-    prevBtn.onclick = () => fetchSensorData(data.page - 1, data.limit, currentQueryParams); // Chuyển tới trang trước
+    prevBtn.onclick = () => fetchSensorData(data.page - 1, currentLimit, currentQueryParams); // Chuyển tới trang trước
 
     // Thêm nút "Sau"
     const nextBtn = document.getElementById('nextBtn');
     nextBtn.disabled = data.page === data.totalPages; // Vô hiệu hóa nút "Sau" nếu đang ở trang cuối
-    nextBtn.onclick = () => fetchSensorData(data.page + 1, data.limit, currentQueryParams); // Chuyển tới trang sau
+    nextBtn.onclick = () => fetchSensorData(data.page + 1, currentLimit, currentQueryParams); // Chuyển tới trang sau
 
     const totalPages = data.totalPages;
 
@@ -108,7 +112,7 @@ function updatePagination(data) {
     const firstButton = document.createElement('button');
     firstButton.textContent = 1;
     firstButton.className = data.page === 1 ? 'active' : ''; // Đánh dấu nút trang đầu nếu đang ở trang 1
-    firstButton.addEventListener('click', () => fetchSensorData(1, data.limit, currentQueryParams));
+    firstButton.addEventListener('click', () => fetchSensorData(1, currentLimit, currentQueryParams));
     pageNumbersContainer.appendChild(firstButton);
 
     // Xác định các trang cần hiển thị
@@ -139,7 +143,7 @@ function updatePagination(data) {
             const button = document.createElement('button');
             button.textContent = i;
             button.className = i === data.page ? 'active' : '';
-            button.addEventListener('click', () => fetchSensorData(i, data.limit, currentQueryParams));
+            button.addEventListener('click', () => fetchSensorData(i, currentLimit, currentQueryParams));
             pageNumbersContainer.appendChild(button);
         }
     }
@@ -154,7 +158,7 @@ function updatePagination(data) {
         const lastButton = document.createElement('button');
         lastButton.textContent = totalPages;
         lastButton.className = data.page === totalPages ? 'active' : '';
-        lastButton.addEventListener('click', () => fetchSensorData(totalPages, data.limit, currentQueryParams));
+        lastButton.addEventListener('click', () => fetchSensorData(totalPages, currentLimit, currentQueryParams));
         pageNumbersContainer.appendChild(lastButton);
     }
 }
@@ -165,20 +169,25 @@ const searchFilterBtn = document.getElementById('search-filterBtn');
 searchFilterBtn.addEventListener('click', () => {
     const searchValue = document.getElementById('searchInput').value;
     const selectOption = document.getElementById('selectOptions').value;
-    console.log(searchValue);
 
     // Tạo các tham số tìm kiếm
     currentQueryParams = {};
 
     if (selectOption === 'temperature') {
         currentQueryParams.temperature = searchValue;
-    }
-    else if (selectOption === 'humidity') {
+    } else if (selectOption === 'humidity') {
         currentQueryParams.humidity = searchValue;
-    }
-    else if (selectOption === 'light') {
+    } else if (selectOption === 'light') {
         currentQueryParams.light = searchValue;
     }
 
-    fetchSensorData(1, 10, currentQueryParams);
+    fetchSensorData(1, currentLimit, currentQueryParams);
+});
+
+// Thêm sự kiện lắng nghe cho dropdown page size
+pageSizeDropdown.addEventListener('change', () => {
+    // Lấy giá trị mới từ dropdown
+    const newPageSize = parseInt(pageSizeDropdown.value);
+    // Gọi lại hàm fetchSensorData với trang đầu tiên và số lượng mới
+    fetchSensorData(1, newPageSize, currentQueryParams);
 });

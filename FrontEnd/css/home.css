@@ -37,8 +37,13 @@ body {
     border-bottom: solid;
 }
 
+.ptit{
+    width: 50px;
+    height: 50px;
+}
+
 .textDashboard {
-    margin-left: 30px;
+    margin-left: 15px;
     text-align: center;
 }
 
@@ -269,6 +274,20 @@ button {
     }
 }
 
+.loadingFan {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+    position: absolute; 
+    margin: auto;
+    transform: translate(-50%, -50%);
+    z-index: 10; 
+}
+
 /* CSS cho Điều hòa */
 .ac-container {
     display: flex;
@@ -339,6 +358,20 @@ button {
     background-color: #d32f2f;
 }
 
+.loadingAC {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+    position: absolute; 
+    margin: auto;
+    transform: translate(-50%, -50%);
+    z-index: 10; 
+}
+
 
 /* CSS cho Đèn */
 .light-container {
@@ -404,30 +437,16 @@ button {
     background-color: #d32f2f;
 }
 
-
-/* CSS cho nút xoay tròn */
-.loading {
-    border: 2px solid #f3f3f3;
-    border-top: 2px solid #3498db;
+.loadingLight {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
     border-radius: 50%;
-    width: 12px;
-    height: 12px;
     animation: spin 1s linear infinite;
-    position: absolute;
-    display: none; 
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-button.loading-state {
-    text-align: center;
-    color: transparent; /* Ẩn văn bản nhưng vẫn giữ không gian */
-}
-
-button.loading-state .loading {
-    display: inline-block; /* Hiển thị biểu tượng loading */
+    display: none;
+    position: absolute; 
+    margin: auto;
+    transform: translate(-50%, -50%);
+    z-index: 10; 
 }

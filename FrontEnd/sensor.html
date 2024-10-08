@@ -11,10 +11,11 @@
 <body>
     <nav class="navbar">
         <div class="dashboard">
+            <img src="./images/PTIT.jpg" alt="" class="ptit">
             <span class="textDashboard">Dashboard</span>
         </div>
         <ul>
-            <li >
+            <li>
                 <img id="home" src="./images/home.jpg" alt="">
                 <a href="./home.html">Home</a>
             </li>
@@ -69,11 +70,25 @@
                 </tbody>
             </table>
         </div>
-        <div id="pagination">
-            <button id="prevBtn" class="arrow">&#9664;</button> <!-- Mũi tên trái -->
-            <div id="pageNumbers"></div>
-            <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
+
+        <div class="pagination-container">
+            <div id="pagination">
+                <button id="prevBtn" class="arrow">&#9664;</button> <!-- Mũi tên trái -->
+                <div id="pageNumbers"></div>
+                <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
+            </div>
+        
+            <div class="box-size">
+                <label for="pageSize"></label>
+                <select id="pageSize">
+                    <option value="5">5 / trang</option>
+                    <option value="10" selected>10 / trang</option>
+                    <option value="20">20 / trang</option>
+                    <option value="50">50 / trang</option>
+                </select>
+            </div>
         </div>
+        
     </div>
 
     <script src="./js/sensor.js"></script>
