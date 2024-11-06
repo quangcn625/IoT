@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch sử thiết bị</title>
     <link rel="stylesheet" href="./css/activity.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="dashboard">
@@ -13,9 +15,13 @@
             <span class="textDashboard">Dashboard</span>
         </div>
         <ul>
-            <li >
+            <li>
                 <img id="home" src="./images/home.jpg" alt="">
                 <a href="./home.html">Home</a>
+            </li>
+            <li>
+                <img id="bai5" src="./images/iconBai5.jpg" alt="">
+                <a href="Bai5.html">Bài 5</a>
             </li>
             <li>
                 <img id="dataSensor" src="./images/datasensor.jpg" alt="">
@@ -34,14 +40,16 @@
 
     <div class="box">
         <div class="search-container" id="search-container">
-            <label for="Time">Thời gian: </label>
-            <input type="datetime-local" id="Time" step="1">
+            <!-- <label for="Time">Thời gian: </label>
+            <input type="datetime-local" id="Time" step="1"> -->
+            <label for="searchInput">Thời gian: </label>
+            <input type="text" id="searchInput" placeholder="Search...">
             <button id="search-filterBtn">
                 <img src="./images/search.jpg" alt="">
             </button>
         </div>
     </div>
-    
+
 
     <div class="container">
         <div class="container_1">
@@ -57,8 +65,8 @@
                 <tbody id="tableBody">
                     <!-- Dữ liệu sẽ được thêm vào đây -->
                 </tbody>
-            </table>  
-        </div>  
+            </table>
+        </div>
 
         <div class="pagination-container">
             <div id="pagination">
@@ -66,7 +74,7 @@
                 <div id="pageNumbers"></div>
                 <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
             </div>
-        
+
             <div class="box-size">
                 <label for="pageSize"></label>
                 <select id="pageSize">
@@ -81,4 +89,5 @@
 
     <script src="./js/activity.js"></script>
 </body>
+
 </html>

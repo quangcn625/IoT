@@ -11,7 +11,8 @@ body {
     background-color: #eaeaea;
     color: #333;
     line-height: 1.6;
-    padding-top: 60px; /* Space for the fixed navbar */
+    padding-top: 60px;
+    /* Space for the fixed navbar */
     padding-bottom: 30px;
     /* overflow-y: auto; Enable vertical scrolling */
 }
@@ -35,13 +36,13 @@ body {
     display: flex;
     align-items: center;
     padding: 20px;
-    width: 100%; 
+    width: 100%;
     font-size: large;
     font-weight: bold;
     border-bottom: solid;
 }
 
-.ptit{
+.ptit {
     width: 50px;
     height: 50px;
 }
@@ -54,27 +55,31 @@ body {
 .navbar ul {
     font-size: medium;
     font-weight: bold;
-    list-style-type: none; 
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
 .navbar li {
-    display: flex; 
-    align-items: center; 
-    margin: 15px 0px; 
+    display: flex;
+    align-items: center;
+    margin: 15px 0px;
 }
 
-#home, #dataSensor, #activity, #profileIcon {
+#home,
+#dataSensor,
+#activity,
+#profileIcon,
+#bai5 {
     width: 25px;
-    height: 25px; 
-    margin-right: 10px; 
+    height: 25px;
+    margin-right: 10px;
     margin-left: 20px;
 }
 
 .navbar a {
-    text-decoration: none; 
-    color: #333; 
+    text-decoration: none;
+    color: #333;
     padding: 15px 20px;
     display: block;
     transition: background-color 0.3s, color 0.3s;
@@ -153,7 +158,7 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 30px;
-    height: 30px; 
+    height: 30px;
 }
 
 #search-filterBtn img {
@@ -180,113 +185,163 @@ button:hover {
 }
 
 #selectOptions:focus {
-    border-color: #4a90e2; 
+    border-color: #4a90e2;
 }
 
+/* .sort-container {
+    margin-left: 20px;
+}
+
+#sortoptions {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.3s;
+}
+
+#sortoptions:focus {
+    border-color: #4a90e2;
+} */
+
 /* CSS cho table */
-.container{
+.container {
     margin-left: 10%;
 }
 
 .container_1 {
     width: 100%;
     margin: 10px 0;
-    display: flex; 
+    display: flex;
     justify-content: center;
 }
 
-/* Định dạng bảng dữ liệu */
+/* Data table styling */
 .data-table {
-    width: 80%; 
+    width: 80%;
     border-collapse: collapse;
-    border-radius: 8px; 
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Định dạng cho tiêu đề bảng */
+/* Table header styling */
 .data-table thead {
-    background-color: #4a90e2; 
-    color: white
+    background-color: #4a90e2;
+    color: white;
 }
 
 .data-table th {
-    padding: 10px; 
+    padding: 12px;
     text-align: center;
     font-weight: bold;
+    position: relative;
 }
 
+/* Sort container and button styling */
+.sort-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.sort-button {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+    padding: 0 2px;
+    transition: color 0.3s;
+}
+
+.sort-button:hover {
+    color: #ffcc00;
+}
+
+/* Table cell styling */
 .data-table td {
-    padding: 9px; 
-    border-bottom: 1px solid #ddd; 
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
     text-align: center;
     background-color: white;
 }
 
 .data-table tbody tr:first-child {
-    border-top: 2px solid #007bff; 
+    border-top: 2px solid #007bff;
 }
 
-/* Định dạng cho ô trống */
+/* Empty cell styling */
 .data-table td.empty {
-    text-align: center; 
-    color: #999; 
+    text-align: center;
+    color: #999;
 }
+
+/* Additional enhancements */
+.data-table th,
+.data-table td {
+    text-align: center;
+}
+
 
 /* CSS cho container bao bọc pagination và box-size */
 .pagination-container {
-    display: flex; 
-    justify-content: center; /* Căn giữa các phần tử */
-    align-items: center; /* Căn chỉnh theo chiều dọc */
+    display: flex;
+    justify-content: center;
+    /* Căn giữa các phần tử */
+    align-items: center;
+    /* Căn chỉnh theo chiều dọc */
     margin-top: 25px;
     margin-left: 30%;
 }
 
 /* CSS cho phân trang */
 #pagination {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 #pagination .arrow {
     background: #4a90e2;
-    color: #fff; 
+    color: #fff;
     border: none;
-    padding: 6px; 
-    cursor: pointer; 
-    font-size: 14px; 
-    border-radius: 5px; 
-    transition: background-color 0.3s, transform 0.3s; 
+    padding: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 #pagination .arrow:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
 #pageNumbers {
-    display: flex; 
-    align-items: center; 
-    margin: 0 10px; 
-    font-size: 12px; 
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 12px;
 }
 
 /* Giữ nguyên cấu trúc cho các nút trong pageNumbers */
 #pageNumbers button {
-    background: none; 
-    color: black; 
-    border: none; 
-    cursor: pointer; 
+    background: none;
+    color: black;
+    border: none;
+    cursor: pointer;
     font-size: 14px;
-    margin: 0 5px; 
-    transition: color 0.3s; 
+    margin: 0 5px;
+    transition: color 0.3s;
 }
 
 #pageNumbers button:hover {
-    color: #0077aa; 
+    color: #0077aa;
 }
 
 #pagination button.active {
-    background-color: #b8c5d4; 
+    background-color: #b8c5d4;
 }
 
 /* CSS cho pageSIZE */
@@ -303,17 +358,16 @@ button:hover {
 }
 
 .box-size select {
-    padding: 5px 10px; 
+    padding: 5px 10px;
     border: 1px solid #ccc;
-    border-radius: 5px; 
-    font-size: 14px; 
-    background-color: #fff; 
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
     cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s; 
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .box-size select:focus {
-    border-color: #4a90e2; 
+    border-color: #4a90e2;
     box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
-

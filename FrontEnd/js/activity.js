@@ -13,8 +13,11 @@ async function fetchEquipData(page = 1, limit = parseInt(pageSizeDropdown.value)
 
         let queryString = `?page=${page}&limit=${limit}`;
 
+        // if (queryParams.activity_time) {
+        //     queryString += `&activity_time=${encodeURIComponent(queryParams.activity_time)}`; // Mã hóa tham số để tránh lỗi
+        // }
         if (queryParams.activity_time) {
-            queryString += `&activity_time=${encodeURIComponent(queryParams.activity_time)}`; // Mã hóa tham số để tránh lỗi
+            queryString += `&activity_time=${queryParams.activity_time}`; // Mã hóa tham số để tránh lỗi
         }
 
         const response = await fetch(`http://localhost:3000/api/equips${queryString}`);
@@ -28,6 +31,7 @@ async function fetchEquipData(page = 1, limit = parseInt(pageSizeDropdown.value)
         updateDataTable(data);
     } catch (error) {
         console.error('Error fetching equip data:', error);
+        //alert('Nhập sai định dạng. Vui lòng nhập lại!!!!')
     }
 }
 
@@ -162,15 +166,49 @@ const searchFilterBtn = document.getElementById('search-filterBtn');
 
 searchFilterBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    const searchValue = document.getElementById('Time').value;
+    const searchValue = document.getElementById('searchInput').value.trim();
 
     // Tạo các tham số tìm kiếm
     currentQueryParams = {};
 
-    currentQueryParams.activity_time = searchValue;
+    if (searchValue !== "") {
+        const parts = searchValue.split(' '); // Tách thời gian và ngày
+        if (parts.length === 1) {
+            currentQueryParams.activity_time = searchValue;
+        } else if (parts.length === 2) {
+            let Time = "";
+            let Date = "";
+            for (let i = 0; i < parts[0].length; i++) {
+                if (parts[0][i] === ':') {
+                    Time = parts[0];
+                    Date = parts[1];
+                    break;
+                } else if (parts[0][i] === '/') {
+                    Time = parts[1];
+                    Date = parts[0];
+                    break;
+                } else continue;
+            }
+
+            currentQueryParams.activity_time = Time + " " + Date;
+        }
+
+        // Kiểm tra định dạng activity_time
+        if (!isValidActivityTime(currentQueryParams.activity_time)) {
+            //alert('Định dạng không hợp lệ. Vui lòng nhập lại!!!');
+            return; // Dừng thực thi nếu định dạng không hợp lệ
+        }
+    }
 
     fetchEquipData(1, currentLimit, currentQueryParams);
 });
+
+// Hàm kiểm tra định dạng activity_time
+function isValidActivityTime(activityTime) {
+    const activityTimeRegex = /^(?:(?:[01]\d|2[0-3]):[0-5]\d(?:\:[0-5]\d)?\s(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}|(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4})$/;
+
+    return activityTimeRegex.test(activityTime);
+}
 
 // Thêm sự kiện lắng nghe cho dropdown page size
 pageSizeDropdown.addEventListener('change', () => {

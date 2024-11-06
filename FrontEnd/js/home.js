@@ -1,4 +1,4 @@
-// Dữ liệu ban đầu
+// Biểu đồ 1
 const labels = [];
 const data = {
     labels: labels,
@@ -30,7 +30,7 @@ const data = {
     ]
 };
 
-// Cấu hình biểu đồ
+// Cấu hình biểu đồ 1
 const config = {
     type: 'line',
     data: data,
@@ -87,7 +87,7 @@ const config = {
     }
 };
 
-// Tạo biểu đồ
+// Tạo biểu đồ 1
 const lineChart = new Chart(document.getElementById('lineChart'), config);
 
 // Kết nối WebSocket
@@ -105,44 +105,8 @@ socket.addEventListener('error', function (error) {
     console.error('WebSocket error:', error);
 });
 
-// Hàm lưu trữ dữ liệu vào localStorage
-function savedSensor() {
-    const data = {
-        temperature: currentTemperature,
-        humidity: currentHumidity,
-        light: currentLight,
-        labels: lineChart.data.labels,
-        temperatureData: lineChart.data.datasets[0].data,
-        humidityData: lineChart.data.datasets[1].data,
-        lightData: lineChart.data.datasets[2].data,
-    };
-    localStorage.setItem('sensorData', JSON.stringify(data));
-}
 
-// Hàm lấy dữ liệu từ localStorage
-function restoreSensor() {
-    const data = localStorage.getItem('sensorData');
-    if (data) {
-        const parsedData = JSON.parse(data);
-        currentTemperature = parsedData.temperature;
-        currentHumidity = parsedData.humidity;
-        currentLight = parsedData.light;
-        
-        // Cập nhật dữ liệu vào biểu đồ
-        lineChart.data.labels = parsedData.labels;
-        lineChart.data.datasets[0].data = parsedData.temperatureData;
-        lineChart.data.datasets[1].data = parsedData.humidityData;
-        lineChart.data.datasets[2].data = parsedData.lightData;
-        
-        // Cập nhật biểu đồ
-        lineChart.update();
-        
-        // Cập nhật hiển thị dữ liệu hiện tại
-        updateDisplay();
-    }
-}
-
-
+// Cac bien nhan du lieu sensor
 let currentTemperature = '--';
 let currentHumidity = '--';
 let currentLight = '--';
@@ -150,72 +114,35 @@ let currentTime = null;
 
 // Lấy mỗi giờ, phút giây
 function getTimeString(dateTimeString) {
-    const [date, time] = dateTimeString.split(" ");
-    return time;
+    const dateObj = new Date(dateTimeString);
+    dateObj.setHours(dateObj.getHours() + 7);
+
+    // Định dạng thời gian thành 'HH:MM:SS'
+    const vietnamTime = dateObj.toISOString().slice(11, 19); // Lấy phần giờ, phút, giây
+    return vietnamTime;
 }
-
-socket.addEventListener('message', function (event) {
-    const newData = JSON.parse(event.data);
-
-    if (newData.temperature !== undefined) {
-        currentTemperature = newData.temperature;
-    }
-    if (newData.humidity !== undefined) {
-        currentHumidity = newData.humidity;
-    }
-    if (newData.light !== undefined) {
-        currentLight = newData.light;
-    }
-
-    // Hiển thị dữ liệu hiện tại
-    updateDisplay();
-
-    if (currentTemperature !== '--' && currentHumidity !== '--' && currentLight !== '--') {
-        currentTime = newData.time;
-        if (currentTime !== undefined) {
-            lineChart.data.labels.push(getTimeString(currentTime));
-
-            lineChart.data.datasets[0].data.push(currentTemperature);
-            lineChart.data.datasets[1].data.push(currentHumidity);
-            lineChart.data.datasets[2].data.push(currentLight);
-
-            if (lineChart.data.labels.length > 5) {
-                lineChart.data.labels.shift();
-                lineChart.data.datasets.forEach((dataset) => {
-                    dataset.data.shift();
-                });
-            }
-
-            // Lưu trữ dữ liệu vào localStorage sau khi nhận dữ liệu mới
-            savedSensor();
-
-            lineChart.update();
-        }
-    }
-});
 
 // Hàm cập nhật hiển thị
 function updateDisplay() {
+
     const tempDiv = document.getElementById('info-temp');
     const tempElement = document.getElementById('temperature');
     const tempIcon = getTempIcon(currentTemperature !== '--' ? currentTemperature : null);
-
     tempElement.innerHTML = currentTemperature;
     tempDiv.innerHTML = `${tempElement.outerHTML}${tempIcon ? `<img src="${tempIcon}" alt="Temperature Icon" style="width: 20px; height: 30px; margin-left: 10px;">` : ''}`;
 
     const humidDiv = document.getElementById('info-humid');
     const humidityElement = document.getElementById('humidity');
     const humidityIcon = getHumidityIcon(currentHumidity !== '--' ? currentHumidity : null);
-
     humidityElement.innerHTML = currentHumidity;
     humidDiv.innerHTML = `${humidityElement.outerHTML}${humidityIcon ? `<img src="${humidityIcon}" alt="Humidity Icon" style="width: 20px; height: 30px; margin-left: 10px;">` : ''}`;
 
     const lightDiv = document.getElementById('info-light');
     const lightElement = document.getElementById('light');
     const lightIcon = getLightIcon(currentLight !== '--' ? currentLight : null);
-
     lightElement.innerHTML = currentLight;
     lightDiv.innerHTML = `${lightElement.outerHTML}${lightIcon ? `<img src="${lightIcon}" alt="Light Icon" style="width: 20px; height: 30px; margin-left: 10px;">` : ''}`;
+
 }
 
 // Hàm lấy icon của nhiệt độ
@@ -251,7 +178,6 @@ function getLightIcon(light) {
     return 'images/high-light.jpg';
 }
 
-
 // Quạt
 const fanToggleBtn = document.getElementById('fanToggleBtn');
 const fan = document.getElementById('fan');
@@ -269,7 +195,7 @@ function restoreFanStatus() {
     if (savedFanStatus !== null) {
         isFanOn = JSON.parse(savedFanStatus);
     }
-    updateFanStatus(isFanOn); 
+    updateFanStatus(isFanOn);
 };
 
 // Hàm cập nhật trạng thái quạt
@@ -289,10 +215,10 @@ function updateFanStatus(state) {
 
 // Hàm hiển thị loading spinner
 function showFanLoadingSpinner() {
-    fanToggleBtn.textContent = ''; 
+    fanToggleBtn.textContent = '';
     loadingFanState.style.display = 'block';
     fanToggleBtn.style.pointerEvents = 'none';
-}   
+}
 
 // Hàm ẩn loading spinner
 function hideFanLoadingSpinner() {
@@ -303,7 +229,7 @@ function hideFanLoadingSpinner() {
 // Giả lập quá trình phản hồi sau 2 giây
 function sendFanStatus(state) {
     if (socket && socket.readyState === WebSocket.OPEN) {
-        showFanLoadingSpinner(); 
+        showFanLoadingSpinner();
         isWaitingForFan = true;
 
         // Gửi trạng thái quạt
@@ -315,17 +241,6 @@ function sendFanStatus(state) {
         alert('Không thể điều khiển được quạt khi kết nối bị gián đoạn hoặc không có kết nối!');
     }
 }
-// function sendFanStatus(state) {
-//     showFanLoadingSpinner(); 
-//     isWaitingForFan = true;
-
-//     // Giả lập quá trình phản hồi từ "server" sau 2 giây
-//     setTimeout(() => {
-//         hideFanLoadingSpinner();
-//         updateFanStatus(state); // Cập nhật giao diện quạt và lưu trạng thái
-//         isWaitingForFan = false; // Cho phép nhấn nút lại
-//     }, 2000);
-// }
 
 // Sự kiện click của button
 fanToggleBtn.addEventListener('click', () => {
@@ -343,7 +258,7 @@ fanToggleBtn.addEventListener('click', () => {
 const acToggleBtn = document.getElementById('acToggleBtn');
 const wind = document.getElementById('wind');
 
-const loadingACState = document.createElement('div'); 
+const loadingACState = document.createElement('div');
 loadingACState.classList.add('loadingAC');
 
 
@@ -379,7 +294,7 @@ function updateACStatus(state) {
 
 function showAcLoadingSpinner() {
     acToggleBtn.textContent = '';
-    loadingACState.style.display = 'block'; 
+    loadingACState.style.display = 'block';
     acToggleBtn.style.pointerEvents = 'none';
 }
 
@@ -390,7 +305,7 @@ function hideAcLoadingSpinner() {
 
 function sendACStatus(state) {
     if (socket && socket.readyState === WebSocket.OPEN) {
-        showAcLoadingSpinner(); 
+        showAcLoadingSpinner();
         isWaitingForAc = true;
 
         // Gửi trạng thái qua WebSocket
@@ -405,11 +320,11 @@ function sendACStatus(state) {
 
 // Sự kiện click của button
 acToggleBtn.addEventListener('click', () => {
-    if (isWaitingForAc) { 
+    if (isWaitingForAc) {
         console.warn('Đang chờ phản hồi từ server. Vui lòng đợi...');
         return;
     }
-    const newACState = !isACOn; 
+    const newACState = !isACOn;
     sendACStatus(newACState);
     acToggleBtn.appendChild(loadingACState);
 });
@@ -419,7 +334,7 @@ acToggleBtn.addEventListener('click', () => {
 const lightToggleBtn = document.getElementById('lightToggleBtn');
 const den = document.getElementById('den');
 
-const loadingLightState = document.createElement('div'); 
+const loadingLightState = document.createElement('div');
 loadingLightState.classList.add('loadingLight');
 
 let isLightOn = false; // Trạng thái cục bộ của đèn
@@ -464,7 +379,7 @@ function hideLightLoadingSpinner() {
 
 function sendLightStatus(state) {
     if (socket && socket.readyState === WebSocket.OPEN) {
-        showLightLoadingSpinner(); 
+        showLightLoadingSpinner();
         isWaitingForLight = true;
 
         // Gửi trạng thái qua WebSocket
@@ -479,7 +394,7 @@ function sendLightStatus(state) {
 
 // Xử lý sự kiện nhấn nút
 lightToggleBtn.addEventListener('click', () => {
-    if (isWaitingForLight) { 
+    if (isWaitingForLight) {
         console.warn('Đang chờ phản hồi từ server. Vui lòng đợi...');
         return;
     }
@@ -488,40 +403,95 @@ lightToggleBtn.addEventListener('click', () => {
     lightToggleBtn.appendChild(loadingLightState);
 });
 
+// Nhấp nháy đèn
+const denCB = document.getElementById('denCB');
+
 // Nhận phản hồi từ backend
 socket.addEventListener('message', (event) => {
     const message = JSON.parse(event.data);
 
-    if (message.topic === 'esp/led/status') {
+    if (message.topic === 'esp/dht/sensor') {
+        fetchDataSensor();
+    }
+
+    else if (message.topic === 'esp/led/status') {
         const name = message.state.name;
         if (name === 'Quat') {
             isFanOn = message.state.led1;
-            console.log("ESP phản hồi trạng thái của quạt là: ", isFanOn);
+            //console.log("ESP phản hồi trạng thái của quạt là: ", isFanOn);
             updateFanStatus(isFanOn);
-            isWaitingForFan = false; 
+            isWaitingForFan = false;
             hideFanLoadingSpinner();
         }
         else if (name === 'DieuHoa') {
             isACOn = message.state.led2;
-            console.log("ESP phản hồi trạng thái của điều hòa là: ", isACOn);
+            //console.log("ESP phản hồi trạng thái của điều hòa là: ", isACOn);
             updateACStatus(isACOn);
-            isWaitingForAc = false; 
+            isWaitingForAc = false;
             hideAcLoadingSpinner();
         }
-        else if (name === 'Den'){
+        else if (name === 'Den') {
             isLightOn = message.state.led3;
-            console.log("ESP phản hồi trạng thái của đèn là: ", isLightOn);
+            //console.log("ESP phản hồi trạng thái của đèn là: ", isLightOn);
             updateLightStatus(isLightOn);
-            isWaitingForLight = false; 
+            isWaitingForLight = false;
             hideLightLoadingSpinner();
         }
     }
+
 });
 
 
-// Khôi phục dữ liệu của sensor, biểu đồ, trạng thái quạt, điều hòa, đèn khi trang được tải
-restoreSensor();
+// Lay du lieu tu sensor1
+async function fetchDataSensor() {
+    try {
+        const response = await fetch(`http://localhost:3000/api/home`);
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        // Cập nhật các giá trị hiện tại
+        if (data.data[0].temperature !== null) currentTemperature = data.data[0].temperature;
+        if (data.data[0].humidity !== null) currentHumidity = data.data[0].humidity;
+        if (data.data[0].light !== null) currentLight = data.data[0].light;
+
+        // Hiển thị dữ liệu hiện tại
+        updateDisplay();
+
+        // Xóa dữ liệu cũ trên biểu đồ
+        lineChart.data.labels = [];
+        lineChart.data.datasets.forEach(dataset => dataset.data = []);
+
+        // Sắp xếp dữ liệu theo ID từ be đến lớn
+        data.data.sort((a, b) => a.id - b.id);
+
+        // Cập nhật biểu đồ với dữ liệu mới từ API
+        data.data.forEach((entry) => {
+            const timeString = getTimeString(entry.time);
+
+            lineChart.data.labels.push(timeString);
+            lineChart.data.datasets[0].data.push(entry.temperature);
+            lineChart.data.datasets[1].data.push(entry.humidity);
+            lineChart.data.datasets[2].data.push(entry.light);
+        });
+
+
+        // Cập nhật biểu đồ hiển thị
+        lineChart.update();
+        // lineChart1.update();
+
+    } catch (error) {
+        console.error('Error fetching sensor data:', error);
+    }
+}
+
+
+
+fetchDataSensor();
+
+// Khôi phục trạng thái quạt, điều hòa, đèn khi trang được tải
 restoreFanStatus();
 restoreACStatus();
 restoreLightStatus();
-

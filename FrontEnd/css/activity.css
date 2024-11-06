@@ -11,7 +11,8 @@ body {
     background-color: #eaeaea;
     color: #333;
     line-height: 1.6;
-    padding-top: 60px; /* Space for the fixed navbar */
+    padding-top: 60px;
+    /* Space for the fixed navbar */
     padding-bottom: 30px;
     /* overflow-y: auto; Enable vertical scrolling */
 }
@@ -35,13 +36,13 @@ body {
     display: flex;
     align-items: center;
     padding: 20px;
-    width: 100%; 
+    width: 100%;
     font-size: large;
     font-weight: bold;
     border-bottom: solid;
 }
 
-.ptit{
+.ptit {
     width: 50px;
     height: 50px;
 }
@@ -54,27 +55,31 @@ body {
 .navbar ul {
     font-size: medium;
     font-weight: bold;
-    list-style-type: none; 
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
 .navbar li {
-    display: flex; 
-    align-items: center; 
-    margin: 15px 0px; 
+    display: flex;
+    align-items: center;
+    margin: 15px 0px;
 }
 
-#home, #dataSensor, #activity, #profileIcon {
+#home,
+#dataSensor,
+#activity,
+#profileIcon,
+#bai5 {
     width: 25px;
-    height: 25px; 
-    margin-right: 10px; 
+    height: 25px;
+    margin-right: 10px;
     margin-left: 20px;
 }
 
 .navbar a {
-    text-decoration: none; 
-    color: #333; 
+    text-decoration: none;
+    color: #333;
     padding: 15px 20px;
     display: block;
     transition: background-color 0.3s, color 0.3s;
@@ -130,7 +135,7 @@ button:hover {
     position: relative;
 }
 
-#Time {
+/* #Time {
     padding: 10px;
     padding-right: 40px;
     border: 1px solid #ccc;
@@ -141,6 +146,20 @@ button:hover {
 }
 
 #Time:focus {
+    border-color: #4a90e2;
+} */
+
+#searchInput {
+    padding: 10px;
+    padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    width: 250px;
+    transition: border-color 0.3s;
+}
+
+#searchInput:focus {
     border-color: #4a90e2;
 }
 
@@ -156,7 +175,7 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 30px;
-    height: 30px; 
+    height: 30px;
 }
 
 #search-filterBtn img {
@@ -170,108 +189,111 @@ button:hover {
 }
 
 /* CSS cho table */
-.container{
+.container {
     margin-left: 10%;
 }
+
 .container_1 {
     width: 100%;
     margin: 10px 0;
-    display: flex; 
+    display: flex;
     justify-content: center;
 }
 
 /* Định dạng bảng dữ liệu */
 .data-table {
-    width: 80%; 
+    width: 80%;
     border-collapse: collapse;
-    border-radius: 8px; 
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Định dạng cho tiêu đề bảng */
 .data-table thead {
-    background-color: #4a90e2; 
+    background-color: #4a90e2;
     color: white
 }
 
 .data-table th {
-    padding: 10px; 
+    padding: 10px;
     text-align: center;
     font-weight: bold;
 }
 
 .data-table td {
-    padding: 9px; 
-    border-bottom: 1px solid #ddd; 
+    padding: 9px;
+    border-bottom: 1px solid #ddd;
     text-align: center;
     background-color: white;
 }
 
 .data-table tbody tr:first-child {
-    border-top: 2px solid #007bff; 
+    border-top: 2px solid #007bff;
 }
 
 /* Định dạng cho ô trống */
 .data-table td.empty {
-    text-align: center; 
-    color: #c2baba; 
+    text-align: center;
+    color: #c2baba;
 }
 
 /* CSS cho container bao bọc pagination và box-size */
 .pagination-container {
-    display: flex; 
-    justify-content: center; /* Căn giữa các phần tử */
-    align-items: center; /* Căn chỉnh theo chiều dọc */
+    display: flex;
+    justify-content: center;
+    /* Căn giữa các phần tử */
+    align-items: center;
+    /* Căn chỉnh theo chiều dọc */
     margin-top: 25px;
     margin-left: 30%;
 }
 
 /* CSS cho phân trang */
 #pagination {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 #pagination .arrow {
     background: #4a90e2;
-    color: #fff; 
+    color: #fff;
     border: none;
-    padding: 6px; 
-    cursor: pointer; 
-    font-size: 14px; 
-    border-radius: 5px; 
-    transition: background-color 0.3s, transform 0.3s; 
+    padding: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 #pagination .arrow:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
 #pageNumbers {
-    display: flex; 
-    align-items: center; 
-    margin: 0 10px; 
-    font-size: 12px; 
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 12px;
 }
 
 /* Giữ nguyên cấu trúc cho các nút trong pageNumbers */
 #pageNumbers button {
-    background: none; 
-    color: black; 
-    border: none; 
-    cursor: pointer; 
+    background: none;
+    color: black;
+    border: none;
+    cursor: pointer;
     font-size: 14px;
-    margin: 0 5px; 
-    transition: color 0.3s; 
+    margin: 0 5px;
+    transition: color 0.3s;
 }
 
 #pageNumbers button:hover {
-    color: #0077aa; 
+    color: #0077aa;
 }
 
 #pagination button.active {
-    background-color: #b8c5d4; 
+    background-color: #b8c5d4;
 }
 
 /* CSS cho pageSIZE */
@@ -288,17 +310,152 @@ button:hover {
 }
 
 .box-size select {
-    padding: 5px 10px; 
+    padding: 5px 10px;
     border: 1px solid #ccc;
-    border-radius: 5px; 
-    font-size: 14px; 
-    background-color: #fff; 
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
     cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s; 
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .box-size select:focus {
-    border-color: #4a90e2; 
+    border-color: #4a90e2;
     box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
+/* CSS cho table */
+.containerCB {
+    margin-left: 10%;
+}
+
+.container_1CB {
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Định dạng bảng dữ liệu */
+.data-tableCB {
+    width: 80%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng cho tiêu đề bảng */
+.data-tableCB thead {
+    background-color: #4a90e2;
+    color: white
+}
+
+.data-tableCB th {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.data-tableCB td {
+    padding: 9px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    background-color: white;
+}
+
+.data-tableCB tbody tr:first-child {
+    border-top: 2px solid #007bff;
+}
+
+/* Định dạng cho ô trống */
+.data-tableCB td.empty {
+    text-align: center;
+    color: #c2baba;
+}
+
+/* CSS cho container bao bọc pagination và box-size */
+.pagination-containerCB {
+    display: flex;
+    justify-content: center;
+    /* Căn giữa các phần tử */
+    align-items: center;
+    /* Căn chỉnh theo chiều dọc */
+    margin-top: 25px;
+    margin-left: 30%;
+}
+
+/* CSS cho phân trang */
+#paginationCB {
+    display: flex;
+    align-items: center;
+}
+
+#paginationCB .arrowCB {
+    background: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#paginationCB .arrowCB:hover {
+    transform: scale(1.1);
+}
+
+#pageNumbersCB {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 12px;
+}
+
+/* Giữ nguyên cấu trúc cho các nút trong pageNumbers */
+#pageNumbersCB button {
+    background: none;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+#pageNumbersCB button:hover {
+    color: #0077aa;
+}
+
+#paginationCB button.active {
+    background-color: #b8c5d4;
+}
+
+/* CSS cho pageSIZE */
+.box-sizeCB {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.box-sizeCB label {
+    margin-right: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.box-sizeCB select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.box-sizeCB select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}

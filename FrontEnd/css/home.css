@@ -31,13 +31,13 @@ body {
     display: flex;
     align-items: center;
     padding: 20px;
-    width: 100%; 
+    width: 100%;
     font-size: large;
     font-weight: bold;
     border-bottom: solid;
 }
 
-.ptit{
+.ptit {
     width: 50px;
     height: 50px;
 }
@@ -50,27 +50,31 @@ body {
 .navbar ul {
     font-size: medium;
     font-weight: bold;
-    list-style-type: none; 
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
 .navbar li {
-    display: flex; 
-    align-items: center; 
-    margin: 15px 0px; 
+    display: flex;
+    align-items: center;
+    margin: 15px 0px;
 }
 
-#home, #dataSensor, #activity, #profileIcon {
+#home,
+#dataSensor,
+#activity,
+#profileIcon,
+#bai5 {
     width: 25px;
-    height: 25px; 
-    margin-right: 10px; 
+    height: 25px;
+    margin-right: 10px;
     margin-left: 20px;
 }
 
 .navbar a {
-    text-decoration: none; 
-    color: #333; 
+    text-decoration: none;
+    color: #333;
     padding: 15px 20px;
     display: block;
     transition: background-color 0.3s, color 0.3s;
@@ -88,7 +92,7 @@ body {
 }
 
 /* CSS cho toàn khối chứa dht11, linecharrt, led */
-.box{
+.box {
     margin-left: 18%;
     margin-right: 2%;
 }
@@ -150,8 +154,10 @@ body {
     flex-wrap: wrap;
     max-width: 1400px;
     height: 500px;
+    margin-bottom: 20px;
 }
 
+/* CSS cho biểu đồ 1 */
 .container-1 {
     display: flex;
     flex-direction: column;
@@ -164,29 +170,57 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    resize: both; /* Cho phép thay đổi kích thước */
-    overflow: auto; /* Đảm bảo nội dung không bị cắt */
+    resize: both;
+    overflow: auto;
 }
 
 #lineChart {
-    flex: 1; /* Đảm bảo biểu đồ chiếm toàn bộ không gian còn lại trong container */
-    width: 100%; /* Đặt chiều rộng của biểu đồ chiếm toàn bộ chiều rộng của container */
-    height: 100%; /* Đặt chiều cao của biểu đồ chiếm toàn bộ chiều cao của container */
+    flex: 1;
+    width: 100%;
+    height: 100%;
     max-width: 100%;
     max-height: 100%;
     margin: 0;
-    object-fit: contain; /* Đảm bảo biểu đồ giữ nguyên tỷ lệ khi co giãn */
+    object-fit: contain;
 }
 
-
-
-#container-2 {
+/* CSS cho biểu đồ 1 */
+.container-2 {
     display: flex;
     flex-direction: column;
-    background-color: #fff; /* Màu nền trắng cho khối bao quanh */
-    padding: 20px; /* Thêm khoảng đệm để nội dung không dính vào viền */
-    border-radius: 10px; /* Bo góc cho khối bao quanh */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ để nổi bật */
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    height: 95%;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    resize: both;
+    /* Cho phép thay đổi kích thước */
+    overflow: auto;
+    /* Đảm bảo nội dung không bị cắt */
+}
+
+#lineChart1 {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    object-fit: contain;
+}
+
+/* CSS cho thiết bị */
+#container-3 {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     gap: 20px;
     flex: 1;
 }
@@ -220,7 +254,8 @@ button {
 }
 
 .fan {
-    transform-origin: center center; /* Đặt tâm quay ở giữa hình ảnh */
+    transform-origin: center center;
+    /* Đặt tâm quay ở giữa hình ảnh */
     transition: transform 0.5s linear;
 }
 
@@ -269,6 +304,7 @@ button {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -282,10 +318,10 @@ button {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     display: none;
-    position: absolute; 
+    position: absolute;
     margin: auto;
     transform: translate(-50%, -50%);
-    z-index: 10; 
+    z-index: 10;
 }
 
 /* CSS cho Điều hòa */
@@ -299,7 +335,8 @@ button {
 }
 
 .ac {
-    position: relative; /* Đảm bảo gió được đặt chính xác dưới điều hòa */
+    position: relative;
+    /* Đảm bảo gió được đặt chính xác dưới điều hòa */
 }
 
 .ac img {
@@ -310,7 +347,8 @@ button {
 /* Hiệu ứng gió */
 .wind {
     position: absolute;
-    bottom: -20px; /* Đặt gió ngay dưới ảnh điều hòa */
+    bottom: -20px;
+    /* Đặt gió ngay dưới ảnh điều hòa */
     left: 50%;
     width: 60px;
     height: 30px;
@@ -318,7 +356,8 @@ button {
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    z-index: 1; /* Đảm bảo gió không che ảnh điều hòa */
+    z-index: 1;
+    /* Đảm bảo gió không che ảnh điều hòa */
 }
 
 .wind.active {
@@ -330,8 +369,10 @@ button {
     0% {
         transform: translateX(-50%) translateY(0) scaleY(1);
     }
+
     100% {
-        transform: translateX(-50%) translateY(20px) scale(0); /* Di chuyển gió xuống dưới */
+        transform: translateX(-50%) translateY(20px) scale(0);
+        /* Di chuyển gió xuống dưới */
     }
 }
 
@@ -366,10 +407,10 @@ button {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     display: none;
-    position: absolute; 
+    position: absolute;
     margin: auto;
     transform: translate(-50%, -50%);
-    z-index: 10; 
+    z-index: 10;
 }
 
 
@@ -398,20 +439,25 @@ button {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 10px; /* Tăng kích thước để làm cho hiệu ứng loang rộng ra */
-    height: 20px; /* Tăng kích thước để làm cho hiệu ứng loang rộng ra */
-    background: rgba(255, 255, 0, 0.6); /* Đảm bảo ánh sáng có màu sắc rõ ràng */
+    width: 10px;
+    /* Tăng kích thước để làm cho hiệu ứng loang rộng ra */
+    height: 20px;
+    /* Tăng kích thước để làm cho hiệu ứng loang rộng ra */
+    background: rgba(255, 255, 0, 0.6);
+    /* Đảm bảo ánh sáng có màu sắc rõ ràng */
     border-radius: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
     pointer-events: none;
-    box-shadow: 0 0 25px rgba(255, 255, 0, 0.8); /* Tăng độ mờ của bóng đổ để mở rộng hiệu ứng */
+    box-shadow: 0 0 25px rgba(255, 255, 0, 0.8);
+    /* Tăng độ mờ của bóng đổ để mở rộng hiệu ứng */
     transition: opacity 0.3s, box-shadow 0.3s;
 }
 
 .den.glowing .glow {
     opacity: 1;
-    box-shadow: 0 0 40px rgba(255, 255, 0, 0.8); /* Tăng độ mờ của bóng đổ khi đèn sáng */
+    box-shadow: 0 0 40px rgba(255, 255, 0, 0.8);
+    /* Tăng độ mờ của bóng đổ khi đèn sáng */
 }
 
 #lightToggleBtn {
@@ -445,8 +491,87 @@ button {
     border-radius: 50%;
     animation: spin 1s linear infinite;
     display: none;
-    position: absolute; 
+    position: absolute;
     margin: auto;
     transform: translate(-50%, -50%);
-    z-index: 10; 
+    z-index: 10;
+}
+
+/* CSS cho đèn cảnh báo */
+.CB-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#CB {
+    margin-right: 35%;
+    font-size: 18px;
+    color: #333;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.denCB {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.denCB img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.glowCB {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 20px;
+    background: rgba(184, 7, 7, 0.6);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+    transition: opacity 0.3s, box-shadow 0.3s;
+}
+
+.denCB.glowingCB .glowCB {
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+}
+
+/* CSS cho cảnh báo */
+.canhbao-container {
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #333;
+}
+
+#canhbao {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#canhbaoCount {
+    font-size: 18px;
+    color: #f44336;
 }

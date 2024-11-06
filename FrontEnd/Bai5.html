@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="./css/bai5.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="dashboard">
+            <img src="./images/PTIT.jpg" alt="" class="ptit">
+            <span class="textDashboard">Dashboard</span>
+        </div>
+        <ul>
+            <li>
+                <img id="home" src="./images/home.jpg" alt="">
+                <a href="./home.html">Home</a>
+            </li>
+            <li class="active">
+                <img id="bai5" src="./images/iconBai5.jpg" alt="">
+                <a href="Bai5.html">Bài 5</a>
+            </li>
+            <li>
+                <img id="dataSensor" src="./images/datasensor.jpg" alt="">
+                <a href="./sensor.html">Data sensor</a>
+            </li>
+            <li>
+                <img id="activity" src="./images/activity.jpg" alt="">
+                <a href="./activity.html">Activity history</a>
+            </li>
+            <li>
+                <img id="profileIcon" src="./images/profileIcon.jpg" alt="">
+                <a href="./profile.html">Profile</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="box">
+        <div class="container">
+            <div class="block">
+                <h3>Tốc độ gió (km/h)</h3>
+                <div id="info-windSpeed" class="info">
+                    <p id="windSpeed" class="desc">--</p>
+                    <div id="img-windSpeed"></div>
+                </div>
+            </div>
+            <div class="container-2">
+                <canvas id="lineChart1"></canvas>
+            </div>
+
+            <div id="container-3" class="buttons">
+                <div class="CB-container">
+                    <div class="denCB" id="denCB">
+                        <img src="./images/light.jpg" alt="Light">
+                        <div class="glowCB" id="glowCB"></div>
+                    </div>
+                    <span id="CB">Đèn cảnh báo</span>
+                </div>
+
+                <!-- <div class="canhbao-container">
+                    <span id="canhbao">Số lần cảnh báo: </span><span id="canhbaoCount">0</span>
+                </div> -->
+            </div>
+        </div>
+
+        
+    </div>
+
+
+    <script src="./js/bai5.js"></script>
+</body>
+
+</html>

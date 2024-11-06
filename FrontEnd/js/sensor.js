@@ -1,17 +1,26 @@
 // Biến lưu trữ queryParams hiện tại
 let currentQueryParams = {};
-// Lấy phần tử dropdown page size
+let sortField = ''; // Trường sắp xếp
+let sortOrder = 'asc'; // Thứ tự sắp xếp
+
 const pageSizeDropdown = document.getElementById('pageSize');
+
+// Hàm để sắp xếp dữ liệu
+function sortData(field, order) {
+    sortField = field;
+    sortOrder = order;
+    fetchSensorData(1, currentLimit, currentQueryParams);
+}
 
 // Hàm để lấy dữ liệu cảm biến từ máy chủ với các tham số tìm kiếm và phân trang
 async function fetchSensorData(page = 1, limit = parseInt(pageSizeDropdown.value), queryParams = currentQueryParams) {
     try {
-        // Lưu trang hiện tại và giới hạn phân trang vào biến global để sử dụng lại khi cần thiết
         currentPage = page;
         currentLimit = limit;
 
         let queryString = `?page=${page}&limit=${limit}`;
 
+        // Thêm các tham số tìm kiếm
         if (queryParams.temperature) {
             queryString += `&temperature=${queryParams.temperature}`;
         }
@@ -20,6 +29,14 @@ async function fetchSensorData(page = 1, limit = parseInt(pageSizeDropdown.value
         }
         if (queryParams.light) {
             queryString += `&light=${queryParams.light}`;
+        }
+        if (queryParams.time) {
+            queryString += `&time=${queryParams.time}`;
+        }
+
+        // Thêm các tham số sắp xếp
+        if (sortField) {
+            queryString += `&sortField=${sortField}&sortOrder=${sortOrder}`;
         }
 
         const response = await fetch(`http://localhost:3000/api/sensors${queryString}`);
@@ -30,16 +47,14 @@ async function fetchSensorData(page = 1, limit = parseInt(pageSizeDropdown.value
         const data = await response.json();
 
         // Cập nhật bảng dữ liệu với dữ liệu nhận được
-        updateDataTable(data);
+        renderDataTable(data);
     } catch (error) {
         console.error('Error fetching sensor data:', error);
     }
 }
 
-// Gọi hàm để lấy dữ liệu từ database khi khởi động trang
 fetchSensorData();
 
-// Hàm để định dạng timestamp thành chuỗi giờ phút giây
 function formatTime(time) {
     const date = new Date(time);
     const options = {
@@ -49,17 +64,16 @@ function formatTime(time) {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-        hour12: false // Sử dụng định dạng 24 giờ
+        hour12: false
     };
     return date.toLocaleString('vi-VN', options);
 }
 
 // Hàm để cập nhật bảng dữ liệu
-function updateDataTable(data) {
+function renderDataTable(data) {
     const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = '';
 
-    // Kiểm tra nếu không có dữ liệu trả về
     if (data.data.length === 0) {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -67,7 +81,6 @@ function updateDataTable(data) {
         `;
         tableBody.appendChild(row);
 
-        // Ẩn các phần tử phân trang khi không có dữ liệu
         document.getElementById('pagination').style.display = 'none';
         return;
     } else {
@@ -82,29 +95,29 @@ function updateDataTable(data) {
         <td>${sensor.temperature}</td>
         <td>${sensor.humidity}</td>
         <td>${sensor.light}</td>
+        <td>${sensor.windSpeed}</td>
         <td>${formatTime(sensor.time)}</td>
     `;
         tableBody.appendChild(row);
     });
 
-    // Cập nhật thông tin phân trang
-    updatePagination(data);
+    renderPagination(data);
 }
 
 // Hàm để cập nhật phân trang
-function updatePagination(data) {
+function renderPagination(data) {
     const pageNumbersContainer = document.getElementById('pageNumbers');
     pageNumbersContainer.innerHTML = '';
 
     // Thêm nút "Trước"
     const prevBtn = document.getElementById('prevBtn');
     prevBtn.disabled = data.page === 1; // Vô hiệu hóa nút "Trước" nếu đang ở trang đầu
-    prevBtn.onclick = () => fetchSensorData(data.page - 1, currentLimit, currentQueryParams); // Chuyển tới trang trước
+    prevBtn.onclick = () => fetchSensorData(data.page - 1, currentLimit, currentQueryParams);
 
     // Thêm nút "Sau"
     const nextBtn = document.getElementById('nextBtn');
     nextBtn.disabled = data.page === data.totalPages; // Vô hiệu hóa nút "Sau" nếu đang ở trang cuối
-    nextBtn.onclick = () => fetchSensorData(data.page + 1, currentLimit, currentQueryParams); // Chuyển tới trang sau
+    nextBtn.onclick = () => fetchSensorData(data.page + 1, currentLimit, currentQueryParams);
 
     const totalPages = data.totalPages;
 
@@ -167,27 +180,69 @@ function updatePagination(data) {
 const searchFilterBtn = document.getElementById('search-filterBtn');
 
 searchFilterBtn.addEventListener('click', () => {
-    const searchValue = document.getElementById('searchInput').value;
+    const searchValue = document.getElementById('searchInput').value.trim();
     const selectOption = document.getElementById('selectOptions').value;
 
     // Tạo các tham số tìm kiếm
     currentQueryParams = {};
 
-    if (selectOption === 'temperature') {
+    if (selectOption === 'macdinh') {
+        sortField = '';
+        sortOrder = 'asc';
+    }
+    else if (selectOption === 'temperature') {
         currentQueryParams.temperature = searchValue;
-    } else if (selectOption === 'humidity') {
+    }
+    else if (selectOption === 'humidity') {
         currentQueryParams.humidity = searchValue;
-    } else if (selectOption === 'light') {
+    }
+    else if (selectOption === 'light') {
         currentQueryParams.light = searchValue;
+    }
+    else if (selectOption === 'time') {
+        const parts = searchValue.split(' '); // Tách thời gian và ngày
+        if (parts.length === 1) {
+            currentQueryParams.time = searchValue;
+        }
+        else if (parts.length === 2) {
+            let Time = "";
+            let Date = "";
+            for (let i = 0; i < parts[0].length; i++) {
+                if (parts[0][i] === ':') {
+                    Time = parts[0];
+                    Date = parts[1];
+                    break;
+                }
+                else if (parts[0][i] === '/') {
+                    Time = parts[1];
+                    Date = parts[0];
+                    break;
+                }
+                else continue;
+            }
+
+            currentQueryParams.time = Time + " " + Date;
+
+            // Kiểm tra định dạng activity_time
+            if (!isValidActivityTime(currentQueryParams.time)) {
+                alert('Định dạng không hợp lệ. Vui lòng nhập lại!!!');
+                return; // Dừng thực thi nếu định dạng không hợp lệ
+            }
+        }
     }
 
     fetchSensorData(1, currentLimit, currentQueryParams);
 });
 
+// Hàm kiểm tra định dạng activity_time
+function isValidActivityTime(time) {
+    const timeRegex = /^(?:(?:[01]\d|2[0-3]):[0-5]\d(?:\:[0-5]\d)?\s(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}|(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4})$/;
+
+    return timeRegex.test(time);
+}
+
 // Thêm sự kiện lắng nghe cho dropdown page size
 pageSizeDropdown.addEventListener('change', () => {
-    // Lấy giá trị mới từ dropdown
     const newPageSize = parseInt(pageSizeDropdown.value);
-    // Gọi lại hàm fetchSensorData với trang đầu tiên và số lượng mới
     fetchSensorData(1, newPageSize, currentQueryParams);
 });

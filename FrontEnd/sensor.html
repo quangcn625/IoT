@@ -19,6 +19,10 @@
                 <img id="home" src="./images/home.jpg" alt="">
                 <a href="./home.html">Home</a>
             </li>
+            <li>
+                <img id="bai5" src="./images/iconBai5.jpg" alt="">
+                <a href="Bai5.html">Bài 5</a>
+            </li>
             <li class="active">
                 <img id="dataSensor" src="./images/datasensor.jpg" alt="">
                 <a href="sensor.html">Data sensor</a>
@@ -49,8 +53,22 @@
                 <option value="temperature">Nhiệt độ</option>
                 <option value="humidity">Độ ẩm</option>
                 <option value="light">Cường độ</option>
+                <option value="time">Thời gian</option>
             </select>
         </div>
+
+        <!-- <div class="sort-container">
+            <label for="sortOptions"></label>
+            <select id="sortoptions">
+                <option value="macdinh">Mặc định</option>
+                <option value="temperature_asc">Nhiệt độ tăng dần</option>
+                <option value="temperature_desc">Nhiệt độ giảm dần</option>
+                <option value="humidity_asc">Độ ẩm tăng dần</option>
+                <option value="humidity_desc">Độ ẩm giảm dần</option>
+                <option value="light_asc">Cường độ tăng dần</option>
+                <option value="light_desc">Cường độ giảm dần</option>
+            </select>
+        </div> -->
     </div>
 
     <div class="container">
@@ -59,9 +77,39 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Nhiệt độ (°C)</th>
-                        <th>Độ ẩm (%)</th>
-                        <th>Cường độ ánh sáng (lux)</th>
+                        <th>
+                            Nhiệt độ (°C)
+                            <div class="sort-container">
+                                <button class="sort-button" onclick="sortData('temperature', 'asc')">↑</button>
+                                <button class="sort-button" onclick="sortData('temperature', 'desc')">↓</button>
+                            </div>
+                        </th>
+                        <th>
+                            Độ ẩm (%)
+                            <div class="sort-container">
+                                <button class="sort-button" onclick="sortData('humidity', 'asc')">↑</button>
+                                <button class="sort-button" onclick="sortData('humidity', 'desc')">↓</button>
+                            </div>
+                        </th>
+                        <th>
+                            Cường độ sáng (lux)
+                            <div class="sort-container">
+                                <button class="sort-button" onclick="sortData('light', 'asc')">↑</button>
+                                <button class="sort-button" onclick="sortData('light', 'desc')">↓</button>
+                            </div>
+                        </th>
+                        <th>Tốc độ gió
+                            <div class="sort-container">
+                                <button class="sort-button" onclick="sortData('windSpeed', 'asc')">↑</button>
+                                <button class="sort-button" onclick="sortData('windSpeed', 'desc')">↓</button>
+                            </div>
+                        </th>
+                        <!-- <th>Lượng mưa
+                            <div class="sort-container">
+                                <button class="sort-button" onclick="sortData('rain', 'asc')">↑</button>
+                                <button class="sort-button" onclick="sortData('rain', 'desc')">↓</button>
+                            </div>
+                        </th> -->
                         <th>Thời gian</th>
                     </tr>
                 </thead>
@@ -77,7 +125,7 @@
                 <div id="pageNumbers"></div>
                 <button id="nextBtn" class="arrow">&#9654;</button> <!-- Mũi tên phải -->
             </div>
-        
+
             <div class="box-size">
                 <label for="pageSize"></label>
                 <select id="pageSize">
@@ -88,7 +136,7 @@
                 </select>
             </div>
         </div>
-        
+
     </div>
 
     <script src="./js/sensor.js"></script>
